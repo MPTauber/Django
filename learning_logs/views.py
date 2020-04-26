@@ -21,4 +21,13 @@ def topics(request):
     # as well as the request object and the path to the template
     return render(request, 'learning_logs/topics.html', context)
 
+def topic(request, topic_id):
+    #Just like we did in MyShell.py
+    topic = Topic.objects.get(id=topic_id) # Topic (ppt says Topics)
+    # foreign key can be accessed using "_set"
+    entries = topic.entry_set.order_by("-date_added") # -dateadded is descending
+    context = {"topic":topic, "entries":entries}
+
+    return render(request, "learning_logs/topic.html", context)
+
 
