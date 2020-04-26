@@ -3,16 +3,17 @@
 {% block content %}
     
     <p>Topics</p>
+
     <!--In standard HtML, a bulleted list is called an unordered list
         and is indicated by the tags <ul></ul>-->
     <ul>
         <!--for loop to loop through each topic
-            NOTE: not like pthon, needs an endfor-->
-        {% for topic in topics}
+         NOTE: not like pthon, needs an endfor-->
+        {% for topic in topics %}
 
         <!--to print a variable in atemplate, wrap the
             variable name in double braces.-->
-        <li>{{topic}}</li> <!-- li - list item-->
+            <li>{{topic}}</li> <!-- li - list item-->
         {% empty %} <!-- if the list is empty then display message-->
             <li>No topics have been added yet.</li>
         {% endfor %}

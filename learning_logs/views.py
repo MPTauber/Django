@@ -19,9 +19,6 @@ def topics(request):
     context = {"topics":topics} # value topics (in white) is pointing to "topics=" above, which is holding all information.
     #When building a page that uses data, we pass the context variable to render()
     # as well as the request object and the path to the template
-    return render(request, "learning_logs/topics.html", context)
+    return render(request, 'learning_logs/topics.html', context)
 
-def base(request):
-    """The base page for Learning Log."""
-    return render(request, "learning_logs/base.html")
 
