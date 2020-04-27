@@ -55,25 +55,22 @@ def new_topic(request):
     return render(request, 'learning_logs/new_topic.html', context)
 
 ## TEST
-def new_entry(request):
+def new_entry(request, topic_id):
+    topic = Topic.objects.get(id=topic_id)
     if request.method != 'POST':
-        # No data submitted; create a blank form (create an instance of TopicForm).
-        # Because we included no arguments when instantiating TopicForm, Django
-        # creates a blank form that the user can fill out.
         form = EntryForm()
     else:
-        # POST data submitted; process data.
-        # We make an insatnce of TopicForm and pass it the data entered by the user,
-        # stored in request.POST.
         form = EntryForm(data=request.POST)
-        # The is_valid() method checks that all required fields are filled
-        # and that data matches the field types expected (so they are not malicious data types)
 
-        if form.is_valid(): # checks validity of the form in the background (security checks - already built-in)
-            # write the data from the form to the database
+        if form.is_valid(): 
+            # When we call save(), we include the argument commit=False to tell Django to create
+        # a new entry object and assign it to new_entry without saving it to the database yet.
+            new_entry= form.save(commit=False)
+            #assign the new topic of the new entry based on the topic we pulled from topic_id
+            new_entry.topic = topic
+            new_entry.save()
             form.save()
-            #redirect the user's browser to the topics page
-            return redirect('learning_logs:topics')
-    # Display a blank form using the new_topic.html template
-    context = {'form':form}
+            return redirect('learning_logs:topic', topic_id=topic_id)
+  
+    context = {'form':form, 'topic': topic}
     return render(request, 'learning_logs/new_entry.html', context)
