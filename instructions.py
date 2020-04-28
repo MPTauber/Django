@@ -83,8 +83,7 @@ admin.site.register(Topic)
 ### py manage.py runserver
 # Add /admin behind link in browser address
 # http://127.0.0.1:8000/admin
-# username: madeleine
-# password: mypassword1234
+
 
 ############ ADDING TOPICS
 # Click Topics
