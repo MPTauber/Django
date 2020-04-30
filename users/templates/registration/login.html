@@ -1,0 +1,21 @@
+{% extends "learning_logs/base.html" %}
+
+{% block content %}
+
+    <!-- If the  form's errors attribute is est, we display an erro rmessage-->    
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <!-- set the action argument as the URL of the login page-->
+    <form action= "{% url 'users:login' %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Log in</button>
+        <!-- include a hidden form eleement, 'next'; the value arugment
+        tells Django where to redirect the user after they've logged in successfully-->
+        <input type='hidden' name='next'
+        value="{% url 'learning_logs:index' %}" />
+    </form>
+
+{% endblock content %}
