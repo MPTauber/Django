@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -11,6 +12,7 @@ def index(request):
     """The home page for Learning Log."""
     return render(request, "learning_logs/index.html")
 
+@login_required
 def topics(request):
     topics = Topic.objects.order_by("date_added")
     # A context is a dictionary in which the key are names we'll use
@@ -22,6 +24,7 @@ def topics(request):
     # as well as the request object and the path to the template
     return render(request, 'learning_logs/topics.html', context)
 
+@login_required
 def topic(request, topic_id):
     #Just like we did in MyShell.py
     topic = Topic.objects.get(id=topic_id) # Topic (ppt says Topics)
@@ -30,6 +33,7 @@ def topic(request, topic_id):
     context = {"topic":topic, "entries":entries}
 
     return render(request, "learning_logs/topic.html", context)
+
 
 def new_topic(request):
     if request.method != 'POST':
@@ -54,6 +58,7 @@ def new_topic(request):
     context = {'form':form}
     return render(request, 'learning_logs/new_topic.html', context)
 
+@login_required
 def new_entry(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
     if request.method != 'POST':
@@ -74,6 +79,7 @@ def new_entry(request, topic_id):
     context = {'form':form, 'topic': topic}
     return render(request, 'learning_logs/new_entry.html', context)
 
+@login_required
 def edit_entry(request, entry_id):
     """Edit an existing entr<"""
     entry = Entry.objects.get(id= entry_id)

@@ -29,3 +29,8 @@ entries = t.entry_set.all() # t represents Chess cause we set it as id 1
 
 for entry in entries:
     print(entry)
+
+from django.contrib.auth.models import User
+
+for user in User.objects.all():
+    print(user.username, user.id)
