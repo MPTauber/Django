@@ -75,6 +75,7 @@ def new_entry(request, topic_id):
             # When we call save(), we include the argument commit=False to tell Django to create
         # a new entry object and assign it to new_entry without saving it to the database yet.
             new_entry= form.save(commit=False)
+            new_entry.owner = request.user
             #assign the new topic of the new entry based on the topic we pulled from topic_id
             new_entry.topic = topic
             new_entry.save()
