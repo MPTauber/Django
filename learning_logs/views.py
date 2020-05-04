@@ -14,7 +14,7 @@ def index(request):
 
 @login_required
 def topics(request):
-    topics = Topic.objects.filter(owner=request.user).oder_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     # A context is a dictionary in which the key are names we'll use
     # in the template to access the data, and the values are the data
     # we need to send to the template. In this case, there's only one key-value pair,
