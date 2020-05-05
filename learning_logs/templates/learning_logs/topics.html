@@ -1,9 +1,10 @@
 {%extends "learning_logs/base.html" %}
 
-{% block content %}
-    
-    <p>Topics</p>
+{% block page_header %}
+    <h1>Topics</h1>
+{% endblock page_header %}
 
+{% block content %}
     <!--In standard HtML, a bulleted list is called an unordered list
         and is indicated by the tags <ul></ul>-->
     <ul>
@@ -13,14 +14,14 @@
 
         <!--to print a variable in atemplate, wrap the
             variable name in double braces.-->
-            <li>
+            <li><h3>
                 <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-            </li> <!-- li - list item-->
+            </h3></li> <!-- li - list item-->
         {% empty %} <!-- if the list is empty then display message-->
-            <li>No topics have been added yet.</li>
+            <li><h3>No topics have been added yet.</h3></li>
         {% endfor %}
     </ul>
 
-    <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
+    <h3><a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a></h3>
 
 {% endblock content %}
