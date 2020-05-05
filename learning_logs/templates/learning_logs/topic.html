@@ -1,28 +1,27 @@
 {% extends "learning_logs/base.html" %}
 
+{% block page_header %}
+    <h1>{{ topic }}</h1>
+{% endblock page_header %}
+
 {% block content %}
+<p>
+    <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
+</p>
+    {% for entry in entries %}
+         <div class="card mb-3">
+            <h4 class="card-header">
+                {{ entry.date_added|date:'M d, Y H:i' }}
+                <small><a href="{% url 'learning_logs:edit_entry' entry.id %}">
+                    edit entry</a></small>
+            </h4>
+            <div class="card-body">
+                {{ entry.text|linebreaks }}
+            </div>
+        </div>
+    {% empty %} <!-- if the list is empty then display message-->
+        <p> There are no entries for this topic yet.</p>
+    {% endfor %}
 
-    <p>Topic: {{ topic }} </p>
-
-    <ul>
-
-        {% for entry in entries %}
-        <li>
-            <!--a vertical line | represents a template filter
-                A function that modifies the value in a template variable-->
-            <p>{{ entry.date_added|date:'M d, Y H:i' }} </p>
-            <!-- the filter linebreaks ensures that long text entries include line breaks-->
-            <p>{{ entry.text|linebreaks }} </p>
-            <p>
-                <a href="{% url 'learning_logs:edit_entry' entry.id %}">Edit entry</a>
-            </p>
-        </li>
-        {% empty %} <!-- if the list is empty then display message-->
-            <li> There are no entries for this topic yet.</li>
-        {% endfor %}
-    </ul>
-
-    <p>
-        <a href="{% url 'learning_logs:new_entry' topic.id %}">Add new entry</a>
-    </p>
     {% endblock content %}
+
